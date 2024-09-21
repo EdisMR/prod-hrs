@@ -1,0 +1,18 @@
+<section>
+	<h2 mat-dialog-title>
+		@if (data.mode == 'create') {
+		<span>Añadir registro nuevo</span>
+		}
+		@if (data.mode == 'modify') {
+		<span>Actualizar registro</span>
+		}
+	</h2>
+	<mat-dialog-content class="mat-typography">
+		<form></form>
+	</mat-dialog-content>
+	<mat-dialog-actions align="end">
+		<button mat-stroked-button mat-dialog-close>Cancelar</button>
+		<button mat-stroked-button color="primary" [mat-dialog-close]="registry"
+			cdkFocusInitial><span>Aceptar</span></button>
+	</mat-dialog-actions>
+</section>
