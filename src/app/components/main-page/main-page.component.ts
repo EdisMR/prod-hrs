@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { DialogRegistryComponent } from '../dialog-registry/dialog-registry.component';
+import { Subscription } from 'rxjs';
 import { HoursManagementService } from '../../services/hours-management.service';
+import { DialogRegistryComponent } from '../dialog-registry/dialog-registry.component';
 
 @Component({
   selector: 'app-main-page',
@@ -12,7 +13,10 @@ export class MainPageComponent {
   constructor(
     private _dialog: MatDialog,
     private _hoursManagementService: HoursManagementService
-  ) { }
+  ) {
+    this.organizedRegistry = this._hoursManagementService.organizedHoursByMonth$.subscribe((registry) => {
+    })
+  }
 
   addRegistry() {
     this._dialog.open(DialogRegistryComponent, {
@@ -26,4 +30,6 @@ export class MainPageComponent {
       }
     })
   }
+
+  organizedRegistry
 }

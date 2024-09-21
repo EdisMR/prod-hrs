@@ -26,7 +26,7 @@ export class DialogRegistryComponent {
         date_created: new Date().toISOString(),
         date: new Date().toISOString(),
         hours: 0,
-        base: 7.25
+        base: "7.25"
       }
     }
     this.buildFormRegistry()
@@ -41,7 +41,7 @@ export class DialogRegistryComponent {
       date_created: [this.data.registry.date_created || new Date().toISOString()],
       date: [this.data.registry.date || new Date().toISOString()],
       hours: [this.data.registry.hours || 0],
-      base: [this.data.registry.base || 7.25],
+      base: [(this.data.registry.base) || "7.25"],
     })
 
     this.formRegistry.valueChanges.subscribe((registry) => {

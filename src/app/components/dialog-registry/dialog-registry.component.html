@@ -7,8 +7,26 @@
 		<span>Actualizar registro</span>
 		}
 	</h2>
-	<mat-dialog-content class="mat-typography">
-		<form></form>
+	<mat-dialog-content class="mat-typography no-scroll-correction">
+		<form [formGroup]="formRegistry">
+			<mat-form-field>
+				<mat-label>Seleccione una fecha</mat-label>
+				<input matInput [matDatepicker]="picker" formControlName="date">
+				<mat-hint>MM/DD/YYYY</mat-hint>
+				<mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+				<mat-datepicker #picker></mat-datepicker>
+			</mat-form-field>
+			<mat-form-field>
+				<mat-label>Horas de producción</mat-label>
+				<input matInput formControlName="hours" type="number" min="0" max="24" step="0.0001">
+			</mat-form-field>
+			<mat-radio-group aria-label="Selecione una hora base" formControlName="base">
+				<mat-label>Horas base</mat-label><br>
+				<mat-radio-button value="7.25">7.25 horas</mat-radio-button><br>
+				<mat-radio-button value="11.25">11.25
+					horas</mat-radio-button>
+			</mat-radio-group>
+		</form>
 	</mat-dialog-content>
 	<mat-dialog-actions align="end">
 		<button mat-stroked-button mat-dialog-close>Cancelar</button>
