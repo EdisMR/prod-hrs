@@ -1,15 +1,30 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, map, Observable } from 'rxjs';
 import { organizedHoursByMonth, ProdHoursBase } from '../interfaces/prod-hours-base';
+import { SnackbarService } from './snackbar.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class HoursManagementService {
 
-  constructor() { }
+  constructor(
+    private _snackbar: SnackbarService
+  ) { }
 
-  private registeredHoursSource: ProdHoursBase[] = [];
+  private registeredHoursSource: ProdHoursBase[] = [{
+    id: 'asdfvafdv',
+    date_created: "2022-01-01",
+    date: "2022-01-01",
+    hours: 20,
+    base: "7.25"
+  }, {
+    id: 'asddaasfvafdvd',
+    date_created: "2022-03-02",
+    date: "2022-02-02",
+    hours: 2,
+    base: "7.25"
+  }];
   private registeredHoursDispatcher: BehaviorSubject<ProdHoursBase[]> = new BehaviorSubject<ProdHoursBase[]>(this.registeredHoursSource);
   public organizedHoursByMonth$: Observable<organizedHoursByMonth[]> = this.registeredHoursDispatcher.asObservable().pipe(
     map(registry => {
@@ -50,12 +65,18 @@ export class HoursManagementService {
           });
         }
       })
-      console.log('organizedHours by month:', organizedHoursByMonthResult)
       return organizedHoursByMonthResult;
     })
   );
 
   addNewRegistry(registry: ProdHoursBase) {
+
+    /* prevent repeated dates (based on day number) */
+    if (this.registeredHoursSource.find(reg => new Date(reg.date).getDate() === new Date(registry.date).getDate())) {
+      this._snackbar.warnFlash('Ya existe un registro para esta fecha');
+      return;
+    }
+
     this.registeredHoursSource.push(registry);
     this.registeredHoursDispatcher.next(this.registeredHoursSource);
   }

@@ -21,7 +21,7 @@ export class MainPageComponent implements OnDestroy {
       })
   }
 
-  displayedColumns: string[] = ['date', 'hours', 'base'];
+  displayedColumns: string[] = ['date', 'hours', 'base', 'actions'];
 
   addRegistry() {
     this._dialog.open(DialogRegistryComponent, {
@@ -30,11 +30,22 @@ export class MainPageComponent implements OnDestroy {
         registry: {}
       }
     }).afterClosed().subscribe((registry) => {
-      if (registry.id) {
-        this._hoursManagementService.addNewRegistry(registry)
-        console.log('new registry:', registry)
+      try {
+
+        if (registry.id) {
+          this._hoursManagementService.addNewRegistry(registry)
+        }
+      } catch (e) {
       }
     })
+  }
+
+  modifyRegistry(id: string) {
+    console.log(id)
+  }
+
+  removeRegistry(id: string) {
+    console.log(id)
   }
 
   organizedRegistry: organizedHoursByMonth[] = []

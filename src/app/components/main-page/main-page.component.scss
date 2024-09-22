@@ -1,0 +1,44 @@
+header {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	gap: 10px;
+	margin-bottom: 20px;
+}
+
+h1 {
+	margin: 30px 0;
+}
+
+.mat-title-activity{
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	width: 100%;
+}
+
+.card-table-container {
+	width: clamp(400px, 80%, 600px);
+	padding-bottom: 30px;
+}
+
+.months-container {
+	display: flex;
+	flex-direction: column;
+	flex-wrap: wrap;
+	justify-content: center;
+	align-items: center;
+	gap: 30px;
+	margin-bottom: 20px;
+}
+
+.actions-btn-container {
+	button:not(:last-child) {
+		margin-right: 20px;
+	}
+}
+
+
+
+

@@ -9,7 +9,7 @@
 @include mat.core();
 
 // Define the theme object.
-$prod-hrs-theme: mat.define-theme((color: (theme-type: dark,
+$prod-hrs-theme: mat.define-theme((color: (theme-type: light,
         primary: mat.$azure-palette,
         tertiary: mat.$blue-palette,
       ),
@@ -38,7 +38,16 @@ body {
 body {
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
-  background-image: radial-gradient(circle 5px at top left, rgba(226, 226, 226, 0.1) 0%, rgba(226, 226, 226, 0.1) 50%, rgba(201, 201, 201, 0.1) 50%, rgba(201, 201, 201, 0.1) 30%, transparent 30%, transparent 50%), linear-gradient(90deg, rgb(51, 51, 51), rgb(51, 51, 51));
-  background-size: 11px 11px;
-  color: #e0e3e2;
+  background-image: repeating-radial-gradient(circle at center center, transparent 0px, transparent 13px, rgba(0, 0, 0, 0.03) 13px, rgba(0, 0, 0, 0.03) 24px, transparent 24px, transparent 62px, rgba(0, 0, 0, 0.03) 62px, rgba(0, 0, 0, 0.03) 96px), repeating-radial-gradient(circle at center center, rgb(255, 255, 255) 0px, rgb(255, 255, 255) 14px, rgb(255, 255, 255) 14px, rgb(255, 255, 255) 18px, rgb(255, 255, 255) 18px, rgb(255, 255, 255) 28px, rgb(255, 255, 255) 28px, rgb(255, 255, 255) 32px);
+  background-size: 21px 21px;
+}
+
+.mat-mdc-card-header-text{
+  width: 100% !important;
+}
+.mat-mdc-card-title{
+	display: flex !important;
+	justify-content: space-between !important;
+	align-items: center !important;
+	width: 100% !important;
 }
