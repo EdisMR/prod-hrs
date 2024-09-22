@@ -3,8 +3,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { Subscription } from 'rxjs';
 import { organizedHoursByMonth } from '../../interfaces/prod-hours-base';
 import { HoursManagementService } from '../../services/hours-management.service';
-import { DialogRemoveRegistryComponent } from '../dialog-remove/dialog-registry.component';
 import { DialogRegistryComponent } from '../dialog-registry/dialog-registry.component';
+import { DialogRemoveRegistryComponent } from '../dialog-remove/dialog-registry.component';
 import { DialogResultRegistryComponent } from '../dialog-result/dialog-result.component';
 
 @Component({

@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, map, Observable, tap } from 'rxjs';
 import { organizedHoursByMonth, ProdHoursBase } from '../interfaces/prod-hours-base';
-import { SnackbarService } from './snackbar.service';
 import { sumarizeInterface } from '../interfaces/sumarize.interface';
+import { SnackbarService } from './snackbar.service';
 
 @Injectable({
   providedIn: 'root'
