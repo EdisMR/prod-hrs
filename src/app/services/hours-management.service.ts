@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, map, Observable } from 'rxjs';
+import { BehaviorSubject, map, Observable, tap } from 'rxjs';
 import { organizedHoursByMonth, ProdHoursBase } from '../interfaces/prod-hours-base';
 import { SnackbarService } from './snackbar.service';
 import { sumarizeInterface } from '../interfaces/sumarize.interface';
@@ -11,23 +11,20 @@ export class HoursManagementService {
 
   constructor(
     private _snackbar: SnackbarService
-  ) { }
+  ) {
 
-  private registeredHoursSource: ProdHoursBase[] = [{
-    id: 'asdfvafdv',
-    date_created: "2022-01-01",
-    date: "2022-01-01",
-    hours: 20,
-    base: "7.25"
-  }, {
-    id: 'asddaasfvafdvd',
-    date_created: "2022-03-02",
-    date: "2022-02-02",
-    hours: 2,
-    base: "7.25"
-  }];
+    this.registeredHoursSource = JSON.parse(localStorage.getItem('registeredHoursv1') || '[]');
+    if (this.registeredHoursSource.length) {
+      this.registeredHoursDispatcher.next(this.registeredHoursSource);
+    }
+  }
+
+  private registeredHoursSource: ProdHoursBase[] = []
   private registeredHoursDispatcher: BehaviorSubject<ProdHoursBase[]> = new BehaviorSubject<ProdHoursBase[]>(this.registeredHoursSource);
   public organizedHoursByMonth$: Observable<organizedHoursByMonth[]> = this.registeredHoursDispatcher.asObservable().pipe(
+    tap(data => {
+      localStorage.setItem('registeredHoursv1', JSON.stringify(data));
+    }),
     map(registry => {
 
       /* Sort all dates, newest dates first */
@@ -105,7 +102,6 @@ export class HoursManagementService {
 
   getSumarizedHoursByMonth(month: organizedHoursByMonth): sumarizeInterface {
 
-    console.log(month)
     let result: sumarizeInterface = {} as sumarizeInterface
     result.debtHours = "0"
     result.exceedHours = "0"
@@ -121,6 +117,8 @@ export class HoursManagementService {
       result.daysRegisteredTotal += elm.hours
       result.targetHours += Number(elm.base)
     })
+
+    result.daysRegisteredTotal = Number(result.daysRegisteredTotal.toFixed(4).replace(/\.?0+$/, ""))
 
     let calculus = result.daysRegisteredTotal - result.targetHours
     if (calculus < 0) {

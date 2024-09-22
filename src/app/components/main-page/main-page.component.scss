@@ -11,7 +11,8 @@ h1 {
 	margin: 30px 0;
 	color: #006dc6;
 	font-weight: bold;
-	font-size: 25px;
+	font-size: 30px;
+	text-align: center;
 }
 
 .mat-title-activity {
@@ -29,10 +30,10 @@ h1 {
 .months-container {
 	display: flex;
 	flex-direction: column;
-	flex-wrap: wrap;
 	justify-content: flex-start;
 	align-items: center;
-	gap: 30px;
+	gap: 40px;
+	flex-wrap: nowrap;
 	margin-bottom: 20px;
 	min-height: 65vh;
 }
@@ -40,5 +41,14 @@ h1 {
 .actions-btn-container {
 	button:not(:last-child) {
 		margin-right: 20px;
+	}
+}
+
+@media screen and (max-width: 600px) {
+	.months-container {
+		overflow: scroll;
+		align-items: flex-start;
+		padding-left: 10px;
+		padding-right: 10px;
 	}
 }
