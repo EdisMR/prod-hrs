@@ -27,7 +27,7 @@ export class AppComponent {
     }).then(() => {
       this._snackbar.success('Compartido exitosamente.')
     }).catch((error) => {
-      this._snackbar.error('Ocurrió un error al compartir.')
+      this._snackbar.errorFlash('Ocurrió un error al compartir.')
     });
   }
 }
