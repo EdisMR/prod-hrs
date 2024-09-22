@@ -1,5 +1,5 @@
 <header>
-	<h1 class="mat-display-large">Cálculo de horas de producción</h1>
+	<h1 class="mat-display-large text-bg-gradient">Cálculo de horas de producción</h1>
 
 	<section>
 		<button mat-flat-button (click)="addRegistry()">Añadir registro</button>
@@ -10,7 +10,7 @@
 
 	@if (organizedRegistry.length == 0) {
 	<section class="months-container">
-		<mat-card appearance="outlined" class="card-table-container">
+		<mat-card appearance="outlined" class="card-table-container" matRipple matRippleColor="#d7e3ff26">
 			<mat-card-header>
 				<mat-card-title class="no-registry-title"> No hay registros </mat-card-title>
 			</mat-card-header>
@@ -20,7 +20,7 @@
 
 	<section class="months-container">
 		@for (month of organizedRegistry; track month.groupId) {
-		<mat-card appearance="outlined" class="card-table-container">
+		<mat-card appearance="outlined" class="card-table-container" matRipple matRippleColor="#d7e3ff26">
 			<mat-card-header>
 				<mat-card-title>
 					<span>{{month.monthName | titlecase}} {{month.year}}</span>

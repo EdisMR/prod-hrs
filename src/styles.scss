@@ -44,12 +44,43 @@ body {
   scroll-behavior: smooth;
 }
 
-.mat-mdc-card-header-text{
+.mat-mdc-card-header-text {
   width: 100% !important;
 }
-.mat-mdc-card-title{
-	display: flex !important;
-	justify-content: space-between !important;
-	align-items: center !important;
-	width: 100% !important;
+
+.mat-mdc-card-title {
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  width: 100% !important;
+}
+
+.text-bg-gradient {
+  background: rgb(177, 98, 230);
+  background: -moz-linear-gradient(45deg, rgba(177, 98, 230, 1) 0%, rgba(18, 67, 158, 1) 7%, rgba(177, 98, 230, 1) 12%, rgba(18, 67, 158, 1) 18%, rgba(177, 98, 230, 1) 27%, rgb(247, 255, 129) 31%, rgba(177, 98, 230, 1) 35%, rgba(18, 67, 158, 1) 44%, rgba(177, 98, 230, 1) 50%, rgba(18, 67, 158, 1) 55%, rgba(177, 98, 230, 1) 60%, rgba(18, 67, 158, 1) 67%, rgba(255, 255, 255, 0.7749474789915967) 71%, rgba(18, 67, 158, 1) 75%, rgba(177, 98, 230, 1) 83%, rgba(18, 67, 158, 1) 89%, rgba(177, 98, 230, 1) 95%, rgba(18, 67, 158, 1) 100%);
+  background: -webkit-linear-gradient(45deg, rgba(177, 98, 230, 1) 0%, rgba(18, 67, 158, 1) 7%, rgba(177, 98, 230, 1) 12%, rgba(18, 67, 158, 1) 18%, rgba(177, 98, 230, 1) 27%, rgb(247, 255, 129) 31%, rgba(177, 98, 230, 1) 35%, rgba(18, 67, 158, 1) 44%, rgba(177, 98, 230, 1) 50%, rgba(18, 67, 158, 1) 55%, rgba(177, 98, 230, 1) 60%, rgba(18, 67, 158, 1) 67%, rgba(255, 255, 255, 0.7749474789915967) 71%, rgba(18, 67, 158, 1) 75%, rgba(177, 98, 230, 1) 83%, rgba(18, 67, 158, 1) 89%, rgba(177, 98, 230, 1) 95%, rgba(18, 67, 158, 1) 100%);
+  background: linear-gradient(45deg, rgba(177, 98, 230, 1) 0%, rgba(18, 67, 158, 1) 7%, rgba(177, 98, 230, 1) 12%, rgba(18, 67, 158, 1) 18%, rgba(177, 98, 230, 1) 27%, rgb(249, 255, 166) 31%, rgba(177, 98, 230, 1) 35%, rgba(18, 67, 158, 1) 44%, rgba(177, 98, 230, 1) 50%, rgba(18, 67, 158, 1) 55%, rgba(177, 98, 230, 1) 60%, rgba(18, 67, 158, 1) 67%, rgba(255, 255, 255, 0.7749474789915967) 71%, rgba(18, 67, 158, 1) 75%, rgba(177, 98, 230, 1) 83%, rgba(18, 67, 158, 1) 89%, rgba(177, 98, 230, 1) 95%, rgba(18, 67, 158, 1) 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#b162e6", endColorstr="#12439e", GradientType=1);
+  background-size: 600vw auto;
+  background-position: 0% 0%;
+  background-repeat: no-repeat;
+  background-clip: text;
+  background-attachment: fixed;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: bg-movement 50s linear infinite;
+}
+
+@keyframes bg-movement {
+  0% {
+    background-position: 0% 0%;
+  }
+
+  50% {
+    background-position: 100% 0%;
+  }
+
+  100% {
+    background-position: 0% 0%;
+  }
 }
