@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Subscription } from 'rxjs';
+import { organizedHoursByMonth } from '../../interfaces/prod-hours-base';
 import { HoursManagementService } from '../../services/hours-management.service';
 import { DialogRegistryComponent } from '../dialog-registry/dialog-registry.component';
 
@@ -9,14 +10,18 @@ import { DialogRegistryComponent } from '../dialog-registry/dialog-registry.comp
   templateUrl: './main-page.component.html',
   styleUrl: './main-page.component.scss'
 })
-export class MainPageComponent {
+export class MainPageComponent implements OnDestroy {
   constructor(
     private _dialog: MatDialog,
     private _hoursManagementService: HoursManagementService
   ) {
-    this.organizedRegistry = this._hoursManagementService.organizedHoursByMonth$.subscribe((registry) => {
-    })
+    this.organizedRegistrySubscription = this._hoursManagementService.organizedHoursByMonth$
+      .subscribe((organizedRegistry) => {
+        this.organizedRegistry = organizedRegistry
+      })
   }
+
+  displayedColumns: string[] = ['date', 'hours', 'base'];
 
   addRegistry() {
     this._dialog.open(DialogRegistryComponent, {
@@ -27,9 +32,16 @@ export class MainPageComponent {
     }).afterClosed().subscribe((registry) => {
       if (registry.id) {
         this._hoursManagementService.addNewRegistry(registry)
+        console.log('new registry:', registry)
       }
     })
   }
 
-  organizedRegistry
+  organizedRegistry: organizedHoursByMonth[] = []
+  organizedRegistrySubscription: Subscription
+
+  ngOnDestroy(): void {
+    this.organizedRegistrySubscription.unsubscribe()
+  }
+
 }
