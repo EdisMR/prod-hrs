@@ -5,6 +5,7 @@ import { organizedHoursByMonth } from '../../interfaces/prod-hours-base';
 import { HoursManagementService } from '../../services/hours-management.service';
 import { DialogRemoveRegistryComponent } from '../dialog-remove/dialog-registry.component';
 import { DialogRegistryComponent } from '../dialog-registry/dialog-registry.component';
+import { DialogResultRegistryComponent } from '../dialog-result/dialog-result.component';
 
 @Component({
   selector: 'app-main-page',
@@ -67,6 +68,14 @@ export class MainPageComponent implements OnDestroy {
           this._hoursManagementService.removeRegistry(id)
         }
       } catch (e) {
+      }
+    })
+  }
+
+  watchResult(dataForSumarize: organizedHoursByMonth) {
+    this._dialog.open(DialogResultRegistryComponent, {
+      data: {
+        sumarize: this._hoursManagementService.getSumarizedHoursByMonth(dataForSumarize)
       }
     })
   }

@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, map, Observable } from 'rxjs';
 import { organizedHoursByMonth, ProdHoursBase } from '../interfaces/prod-hours-base';
 import { SnackbarService } from './snackbar.service';
+import { sumarizeInterface } from '../interfaces/sumarize.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -100,6 +101,38 @@ export class HoursManagementService {
 
   getOneRegistry(id: string) {
     return this.registeredHoursSource.find(reg => reg.id === id);
+  }
+
+  getSumarizedHoursByMonth(month: organizedHoursByMonth): sumarizeInterface {
+
+    console.log(month)
+    let result: sumarizeInterface = {} as sumarizeInterface
+    result.debtHours = "0"
+    result.exceedHours = "0"
+
+    result.year = month.year
+    result.month = month.monthName
+    result.daysRegisteredQuantity = 0
+    result.daysRegisteredTotal = 0
+    result.targetHours = 0
+
+    month.registry.forEach(elm => {
+      result.daysRegisteredQuantity++
+      result.daysRegisteredTotal += elm.hours
+      result.targetHours += Number(elm.base)
+    })
+
+    let calculus = result.daysRegisteredTotal - result.targetHours
+    if (calculus < 0) {
+      result.debtHours = (calculus * -1).toFixed(4).replace(/\.?0+$/, "")
+      result.exceedHours = "0"
+    }
+    if (calculus > 0) {
+      result.debtHours = "0"
+      result.exceedHours = calculus.toFixed(4).replace(/\.?0+$/, "")
+    }
+
+    return result
   }
 
 }

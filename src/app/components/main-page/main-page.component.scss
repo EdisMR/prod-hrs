@@ -9,9 +9,12 @@ header {
 
 h1 {
 	margin: 30px 0;
+	color: #006dc6;
+	font-weight: bold;
+	font-size: 25px;
 }
 
-.mat-title-activity{
+.mat-title-activity {
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
@@ -27,10 +30,11 @@ h1 {
 	display: flex;
 	flex-direction: column;
 	flex-wrap: wrap;
-	justify-content: center;
+	justify-content: flex-start;
 	align-items: center;
 	gap: 30px;
 	margin-bottom: 20px;
+	min-height: 65vh;
 }
 
 .actions-btn-container {
@@ -38,7 +42,3 @@ h1 {
 		margin-right: 20px;
 	}
 }
-
-
-
-

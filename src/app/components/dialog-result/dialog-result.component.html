@@ -1,0 +1,24 @@
+<section>
+	<h2 mat-dialog-title>
+		Resumen para {{data.sumarize.month}} de {{data.sumarize.year}}
+	</h2>
+	<mat-dialog-content class="mat-typography no-scroll-correction">
+		Has registrado {{data.sumarize.daysRegisteredQuantity}} días que suman {{data.sumarize.daysRegisteredTotal}}
+		horas de producción.<br>
+
+		Por los {{data.sumarize.daysRegisteredQuantity}} días ingresados debes tener {{data.sumarize.targetHours}} horas
+		de producción.<br>
+
+		@if(data.sumarize.debtHours !="0"){
+		Tienes un faltante de {{data.sumarize.debtHours}} horas de producción.
+		}
+		@if(data.sumarize.exceedHours !="0"){
+
+		Tienes {{data.sumarize.exceedHours}} horas más que la meta.
+		}
+	</mat-dialog-content>
+	<mat-dialog-actions align="end">
+		<button mat-stroked-button color="primary" [mat-dialog-close]="true"
+			cdkFocusInitial><span>Ok</span></button>
+	</mat-dialog-actions>
+</section>

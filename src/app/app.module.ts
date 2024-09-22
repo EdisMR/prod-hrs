@@ -13,13 +13,15 @@ import { MatInputModule } from '@angular/material/input';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatTableModule } from '@angular/material/table';
+import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { BrowserModule } from '@angular/platform-browser';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { DialogRemoveRegistryComponent } from './components/dialog-remove/dialog-registry.component';
 import { DialogRegistryComponent } from './components/dialog-registry/dialog-registry.component';
+import { DialogRemoveRegistryComponent } from './components/dialog-remove/dialog-registry.component';
+import { DialogResultRegistryComponent } from './components/dialog-result/dialog-result.component';
 import { MainPageComponent } from './components/main-page/main-page.component';
 import { ProdInfoFromIdPipe } from './pipes/prod-info-from-id.pipe';
 
@@ -38,6 +40,7 @@ const materialImports = [
   MatIconModule,
   MatTooltipModule,
   MatCardModule,
+  MatToolbarModule,
 ]
 
 @NgModule({
@@ -46,6 +49,7 @@ const materialImports = [
     AppComponent,
     DialogRegistryComponent,
     DialogRemoveRegistryComponent,
+    DialogResultRegistryComponent,
     ProdInfoFromIdPipe
   ],
   imports: [
