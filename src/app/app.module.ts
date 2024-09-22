@@ -18,6 +18,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { DialogRemoveRegistryComponent } from './components/dialog-remove/dialog-registry.component';
 import { DialogRegistryComponent } from './components/dialog-registry/dialog-registry.component';
 import { MainPageComponent } from './components/main-page/main-page.component';
 import { ProdInfoFromIdPipe } from './pipes/prod-info-from-id.pipe';
@@ -44,6 +45,7 @@ const materialImports = [
     MainPageComponent,
     AppComponent,
     DialogRegistryComponent,
+    DialogRemoveRegistryComponent,
     ProdInfoFromIdPipe
   ],
   imports: [

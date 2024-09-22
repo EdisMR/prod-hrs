@@ -1,0 +1,15 @@
+<section>
+	<h2 mat-dialog-title>
+		Eliminar registro
+	</h2>
+	<mat-dialog-content class="mat-typography no-scroll-correction">
+		<p>¿Deseas eliminar el registro del {{data.registry.date| date: 'EEEE d'}} de {{data.registry.date | date: 'MMMM'}}?</p>
+		<p>{{data.registry.hours}}hrs de producción (base: {{data.registry.base}})</p><br>
+		<p>Esta accion no se puede deshacer</p>
+	</mat-dialog-content>
+	<mat-dialog-actions align="end">
+		<button mat-stroked-button mat-dialog-close>Cancelar</button>
+		<button mat-stroked-button color="primary" [mat-dialog-close]="true"
+			cdkFocusInitial><span>Aceptar</span></button>
+	</mat-dialog-actions>
+</section>

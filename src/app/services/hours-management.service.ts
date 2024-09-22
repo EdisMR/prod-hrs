@@ -84,6 +84,7 @@ export class HoursManagementService {
   removeRegistry(id: string) {
     this.registeredHoursSource = this.registeredHoursSource.filter(registry => registry.id !== id);
     this.registeredHoursDispatcher.next(this.registeredHoursSource);
+    this._snackbar.success('Registro eliminado');
   }
 
   modifyRegistry(id: string, registry: ProdHoursBase) {
@@ -94,6 +95,11 @@ export class HoursManagementService {
       return reg;
     });
     this.registeredHoursDispatcher.next(this.registeredHoursSource);
+    this._snackbar.success('Registro modificado');
+  }
+
+  getOneRegistry(id: string) {
+    return this.registeredHoursSource.find(reg => reg.id === id);
   }
 
 }

@@ -3,6 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { Subscription } from 'rxjs';
 import { organizedHoursByMonth } from '../../interfaces/prod-hours-base';
 import { HoursManagementService } from '../../services/hours-management.service';
+import { DialogRemoveRegistryComponent } from '../dialog-remove/dialog-registry.component';
 import { DialogRegistryComponent } from '../dialog-registry/dialog-registry.component';
 
 @Component({
@@ -31,7 +32,6 @@ export class MainPageComponent implements OnDestroy {
       }
     }).afterClosed().subscribe((registry) => {
       try {
-
         if (registry.id) {
           this._hoursManagementService.addNewRegistry(registry)
         }
@@ -41,11 +41,34 @@ export class MainPageComponent implements OnDestroy {
   }
 
   modifyRegistry(id: string) {
-    console.log(id)
+    this._dialog.open(DialogRegistryComponent, {
+      data: {
+        mode: 'modify',
+        registry: this._hoursManagementService.getOneRegistry(id)
+      }
+    }).afterClosed().subscribe((registry) => {
+      try {
+        if (registry.id) {
+          this._hoursManagementService.modifyRegistry(id, registry)
+        }
+      } catch (e) {
+      }
+    })
   }
 
   removeRegistry(id: string) {
-    console.log(id)
+    this._dialog.open(DialogRemoveRegistryComponent, {
+      data: {
+        registry: this._hoursManagementService.getOneRegistry(id)
+      }
+    }).afterClosed().subscribe((registry) => {
+      try {
+        if (registry === true) {
+          this._hoursManagementService.removeRegistry(id)
+        }
+      } catch (e) {
+      }
+    })
   }
 
   organizedRegistry: organizedHoursByMonth[] = []
