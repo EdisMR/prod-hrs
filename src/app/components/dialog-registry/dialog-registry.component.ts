@@ -45,6 +45,7 @@ export class DialogRegistryComponent {
     })
 
     this.formRegistry.valueChanges.subscribe((registry) => {
+      registry.date = new Date(registry.date).toISOString()
       this.registry = registry
     })
   }

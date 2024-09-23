@@ -69,11 +69,12 @@ export class HoursManagementService {
 
   addNewRegistry(registry: ProdHoursBase) {
 
-    /* prevent repeated dates (based on day number) */
-    if (this.registeredHoursSource.find(reg => new Date(reg.date).getDate() === new Date(registry.date).getDate())) {
-      this._snackbar.warnFlash('Ya existe un registro para esta fecha');
+    /* prevent repeated dates (based on day and month number) */
+    if (this.registeredHoursSource.find(reg => new Date(reg.date).getDate() === new Date(registry.date).getDate() && new Date(reg.date).getMonth() === new Date(registry.date).getMonth())) {
+      this._snackbar.error('Ya existe un registro para esta fecha');
       return;
     }
+
 
     this.registeredHoursSource.push(registry);
     this.registeredHoursDispatcher.next(this.registeredHoursSource);
