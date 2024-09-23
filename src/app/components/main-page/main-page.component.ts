@@ -78,6 +78,7 @@ export class MainPageComponent implements OnDestroy {
         sumarize: this._hoursManagementService.getSumarizedHoursByMonth(dataForSumarize)
       }
     })
+    return
   }
 
   organizedRegistry: organizedHoursByMonth[] = []
