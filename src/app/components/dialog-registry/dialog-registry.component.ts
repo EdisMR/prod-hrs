@@ -22,9 +22,9 @@ export class DialogRegistryComponent {
       this.registry = data.registry
     } else {
       this.registry = {
-        id: crypto.randomUUID(),
-        date_created: new Date().toISOString(),
-        date: new Date().toISOString(),
+        id: new Date().valueOf().toString(36),
+        date_created: new Date().valueOf().toString(),
+        date: new Date().valueOf().toString(),
         hours: 0,
         base: "7.25"
       }
@@ -36,16 +36,29 @@ export class DialogRegistryComponent {
 
   formRegistry!: FormGroup
   buildFormRegistry() {
+
+    let dateCreated:any = new Date(Number(this.data.registry.date_created)) || new Date()
+    let date:any = new Date(Number(this.data.registry.date)) || new Date()
+
+    if(!(dateCreated.getDate())){
+      dateCreated=""
+    }
+
+    if(!(date.getDate())){
+      date=""
+    }
+
     this.formRegistry = this._fb.group({
-      id: [this.data.registry.id || crypto.randomUUID()],
-      date_created: [this.data.registry.date_created || new Date().toISOString()],
-      date: [this.data.registry.date || new Date().toISOString()],
+      id: [this.data.registry.id || new Date().valueOf().toString(36)],
+      date_created: [dateCreated || new Date()],
+      date: [date || new Date()],
       hours: [this.data.registry.hours || 0],
       base: [(this.data.registry.base) || "7.25"],
     })
 
     this.formRegistry.valueChanges.subscribe((registry) => {
-      registry.date = new Date(registry.date).toISOString()
+      registry.date_created = new Date(Number(registry.date_created)).valueOf().toString()
+      registry.date = new Date(Number(registry.date)).valueOf().toString()
       this.registry = registry
     })
   }

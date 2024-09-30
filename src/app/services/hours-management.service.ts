@@ -13,7 +13,7 @@ export class HoursManagementService {
     private _snackbar: SnackbarService
   ) {
 
-    this.registeredHoursSource = JSON.parse(localStorage.getItem('registeredHoursv1') || '[]');
+    this.registeredHoursSource = JSON.parse(localStorage.getItem('registeredHoursv2') || '[]');
     if (this.registeredHoursSource.length) {
       this.registeredHoursDispatcher.next(this.registeredHoursSource);
     }
@@ -23,12 +23,12 @@ export class HoursManagementService {
   private registeredHoursDispatcher: BehaviorSubject<ProdHoursBase[]> = new BehaviorSubject<ProdHoursBase[]>(this.registeredHoursSource);
   public organizedHoursByMonth$: Observable<organizedHoursByMonth[]> = this.registeredHoursDispatcher.asObservable().pipe(
     tap(data => {
-      localStorage.setItem('registeredHoursv1', JSON.stringify(data));
+      localStorage.setItem('registeredHoursv2', JSON.stringify(data));
     }),
     map(registry => {
 
       /* Sort all dates, newest dates first */
-      registry.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+      registry.sort((a, b) => new Date(Number(b.date)).getTime() - new Date(Number(a.date)).getTime());
 
       /* Group by year and month */
       let organizedHoursByMonthResult: organizedHoursByMonth[] = [];
@@ -43,19 +43,19 @@ export class HoursManagementService {
           registry: []
         };
 
-        registryBaseToOrganize.year = new Date(registry.date).getFullYear().toString();
-        registryBaseToOrganize.month = (new Date(registry.date).getMonth() + 1).toString();
+        registryBaseToOrganize.year = new Date(Number(registry.date)).getFullYear().toString();
+        registryBaseToOrganize.month = (new Date(Number(registry.date)).getMonth() + 1).toString();
         if (Number(registryBaseToOrganize.month) < 10) { registryBaseToOrganize.month = '0' + registryBaseToOrganize.month; }
 
         /* group for 2024 march is 202403 */
         registryBaseToOrganize.groupId = registryBaseToOrganize.year + registryBaseToOrganize.month;
-        registryBaseToOrganize.monthName = new Date(registry.date).toLocaleString('default', { month: 'long' });
+        registryBaseToOrganize.monthName = new Date(Number(registry.date)).toLocaleString('default', { month: 'long' });
 
         /* Find groups in organizedHoursByMonthResult with same registryBaseToOrganize.groupId to add registry on registryBaseToOrganize.registry array */
         const existingGroup = organizedHoursByMonthResult.find(oh => oh.groupId === registryBaseToOrganize.groupId);
         if (existingGroup) {
           existingGroup.registry.push(registry);
-          existingGroup.registry.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+          existingGroup.registry.sort((a, b) => new Date(Number(b.date)).getTime() - new Date(Number(a.date)).getTime());
         } else {
           organizedHoursByMonthResult.push({
             ...registryBaseToOrganize,
@@ -70,7 +70,7 @@ export class HoursManagementService {
   addNewRegistry(registry: ProdHoursBase) {
 
     /* prevent repeated dates (based on day and month number) */
-    if (this.registeredHoursSource.find(reg => new Date(reg.date).getDate() === new Date(registry.date).getDate() && new Date(reg.date).getMonth() === new Date(registry.date).getMonth())) {
+    if (this.registeredHoursSource.find(reg => new Date(Number(reg.date)).getDate() === new Date(Number(registry.date)).getDate() && new Date(Number(reg.date)).getMonth() === new Date(Number(registry.date)).getMonth())) {
       this._snackbar.error('Ya existe un registro para esta fecha');
       return;
     }
@@ -132,6 +132,30 @@ export class HoursManagementService {
     }
 
     return result
+  }
+
+  exportHoursDetails() {
+    //copy to clipboard
+    navigator.clipboard.writeText(JSON.stringify(this.registeredHoursSource)).then(e => {
+      this._snackbar.success('Exportación de datos exitosa')
+    })
+  }
+
+  importHoursDetails() {
+    //paste from clipboard
+    navigator.clipboard.readText().then(e => {
+      //combine data
+      let importedData: ProdHoursBase[] = JSON.parse(e)
+      importedData.forEach(elm => {
+        this.addNewRegistry(elm)
+      })
+    })
+  }
+
+  clearRegistryList() {
+    this.registeredHoursSource = []
+    this.registeredHoursDispatcher.next(this.registeredHoursSource)
+    this._snackbar.success('Todos los registros eliminados')
   }
 
 }

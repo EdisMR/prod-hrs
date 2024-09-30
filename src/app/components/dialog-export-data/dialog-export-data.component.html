@@ -1,0 +1,14 @@
+<section>
+	<h2 mat-dialog-title>
+		Exportar Datos
+	</h2>
+	<mat-dialog-content class="mat-typography no-scroll-correction">
+		<p>Para exportar los datos por favor permita el acceso de esta página al portapapeles.</p>
+		<p>Una vez copiados los datos, envialos al dispositivo donde realizarás la importación.</p>
+	</mat-dialog-content>
+	<mat-dialog-actions align="end">
+		<button mat-stroked-button mat-dialog-close>Cancelar</button>
+		<button mat-stroked-button color="primary" [mat-dialog-close]="true"
+			cdkFocusInitial><span>Continuar</span></button>
+	</mat-dialog-actions>
+</section>

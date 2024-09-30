@@ -20,6 +20,9 @@ import { BrowserModule } from '@angular/platform-browser';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { DialogClearRegistryComponent } from './components/dialog-clear-data/dialog-clear-data.component';
+import { DialogExportRegistryComponent } from './components/dialog-export-data/dialog-export-data.component';
+import { DialogImportRegistryComponent } from './components/dialog-import-data/dialog-import-data.component';
 import { DialogRegistryComponent } from './components/dialog-registry/dialog-registry.component';
 import { DialogRemoveRegistryComponent } from './components/dialog-remove/dialog-registry.component';
 import { DialogResultRegistryComponent } from './components/dialog-result/dialog-result.component';
@@ -53,7 +56,10 @@ const materialImports = [
     DialogRegistryComponent,
     DialogRemoveRegistryComponent,
     DialogResultRegistryComponent,
-    ProdInfoFromIdPipe
+    ProdInfoFromIdPipe,
+    DialogExportRegistryComponent,
+    DialogImportRegistryComponent,
+    DialogClearRegistryComponent,
   ],
   imports: [
     BrowserModule,
