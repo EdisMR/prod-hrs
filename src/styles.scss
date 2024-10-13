@@ -68,7 +68,7 @@ body {
   background-attachment: fixed;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  /* animation: bg-movement 50s linear infinite; */
+  animation: bg-movement 50s linear infinite;
 }
 
 @keyframes bg-movement {
