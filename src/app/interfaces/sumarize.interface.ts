@@ -5,5 +5,7 @@ export interface sumarizeInterface {
 	daysRegisteredTotal:number,
 	targetHours:number,
 	debtHours:string,
-	exceedHours:string
+	exceedHours:string,
+	productivityAewAlbany:string,
+	productivityCostaRica:string
 }

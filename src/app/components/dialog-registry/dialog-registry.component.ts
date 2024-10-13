@@ -52,13 +52,16 @@ export class DialogRegistryComponent {
       id: [this.data.registry.id || new Date().valueOf().toString(36)],
       date_created: [dateCreated || new Date()],
       date: [date || new Date()],
-      hours: [this.data.registry.hours || 0],
+      hours: [this.data.registry.hours || ""],
       base: [(this.data.registry.base) || "7.25"],
     })
 
     this.formRegistry.valueChanges.subscribe((registry) => {
       registry.date_created = new Date(Number(registry.date_created)).valueOf().toString()
       registry.date = new Date(Number(registry.date)).valueOf().toString()
+      if(registry.hours == ""){
+        registry.hours = 0
+      }
       this.registry = registry
     })
   }

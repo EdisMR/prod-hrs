@@ -106,6 +106,8 @@ export class HoursManagementService {
     let result: sumarizeInterface = {} as sumarizeInterface
     result.debtHours = "0"
     result.exceedHours = "0"
+    result.productivityAewAlbany = "0"
+    result.productivityCostaRica = "0"
 
     result.year = month.year
     result.month = month.monthName
@@ -118,6 +120,10 @@ export class HoursManagementService {
       result.daysRegisteredTotal += elm.hours
       result.targetHours += Number(elm.base)
     })
+
+    /* Productivity New Albany */
+    result.productivityAewAlbany = ((result.daysRegisteredTotal * 100) / (result.targetHours)).toFixed(4).replace(/\.?0+$/, "")
+    result.productivityCostaRica = ((result.daysRegisteredTotal * 100) / (result.daysRegisteredQuantity * (7.25))).toFixed(4).replace(/\.?0+$/, "")
 
     result.daysRegisteredTotal = Number(result.daysRegisteredTotal.toFixed(4).replace(/\.?0+$/, ""))
 
@@ -149,6 +155,8 @@ export class HoursManagementService {
       importedData.forEach(elm => {
         this.addNewRegistry(elm)
       })
+
+      this._snackbar.success('Importación de datos exitosa')
     })
   }
 

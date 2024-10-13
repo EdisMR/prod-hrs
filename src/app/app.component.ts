@@ -24,6 +24,7 @@ export class AppComponent {
   sharePage() {
     navigator.clipboard.writeText(window.location.href)
       .then(() => {
+        this._snackbar.success('Copiado al portapapeles.')
       });
 
     /* open application share windows */
@@ -34,7 +35,7 @@ export class AppComponent {
     }).then(() => {
       this._snackbar.success('Compartido exitosamente.')
     }).catch((error) => {
-      this._snackbar.errorFlash('Ocurrió un error al compartir.')
+      this._snackbar.errorFlash('Error al compartir.')
     });
   }
 
