@@ -1,4 +1,4 @@
-import { Component, Inject } from "@angular/core";
+import { ChangeDetectionStrategy, Component, Inject } from "@angular/core";
 import { FormBuilder, FormGroup } from "@angular/forms";
 import { MAT_DIALOG_DATA } from "@angular/material/dialog";
 import { ProdHoursBase } from "../../interfaces/prod-hours-base";
@@ -7,7 +7,8 @@ import { ProdHoursBase } from "../../interfaces/prod-hours-base";
 @Component({
   selector: "dialog-registry-component",
   templateUrl: './dialog-registry.component.html',
-  styleUrl: './dialog-registry.component.scss'
+  styleUrl: './dialog-registry.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class DialogRegistryComponent {
   constructor(

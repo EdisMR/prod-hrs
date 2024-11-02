@@ -1,4 +1,4 @@
-import { Component, Inject } from "@angular/core";
+import { ChangeDetectionStrategy, Component, Inject } from "@angular/core";
 import { MAT_DIALOG_DATA } from "@angular/material/dialog";
 import { sumarizeInterface } from "../../interfaces/sumarize.interface";
 
@@ -6,7 +6,8 @@ import { sumarizeInterface } from "../../interfaces/sumarize.interface";
 @Component({
   selector: "dialog-result-component",
   templateUrl: './dialog-result.component.html',
-  styleUrl: './dialog-result.component.scss'
+  styleUrl: './dialog-result.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class DialogResultRegistryComponent {
   constructor(

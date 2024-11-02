@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogClearRegistryComponent } from './components/dialog-clear-data/dialog-clear-data.component';
 import { DialogExportRegistryComponent } from './components/dialog-export-data/dialog-export-data.component';
@@ -9,7 +9,8 @@ import { SnackbarService } from './services/snackbar.service';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrl: './app.component.scss'
+  styleUrl: './app.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AppComponent {
 

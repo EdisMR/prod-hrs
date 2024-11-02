@@ -1,4 +1,4 @@
-import { Component, Inject } from "@angular/core";
+import { ChangeDetectionStrategy, Component, Inject } from "@angular/core";
 import { MAT_DIALOG_DATA } from "@angular/material/dialog";
 import { ProdHoursBase } from "../../interfaces/prod-hours-base";
 
@@ -6,7 +6,8 @@ import { ProdHoursBase } from "../../interfaces/prod-hours-base";
 @Component({
   selector: "dialog-remove-component",
   templateUrl: './dialog-remove.component.html',
-  styleUrl: './dialog-remove.component.scss'
+  styleUrl: './dialog-remove.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class DialogRemoveRegistryComponent {
   constructor(

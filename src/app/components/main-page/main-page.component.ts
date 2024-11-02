@@ -1,4 +1,4 @@
-import { Component, OnDestroy } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Subscription } from 'rxjs';
 import { organizedHoursByMonth } from '../../interfaces/prod-hours-base';
@@ -10,16 +10,19 @@ import { DialogResultRegistryComponent } from '../dialog-result/dialog-result.co
 @Component({
   selector: 'app-main-page',
   templateUrl: './main-page.component.html',
-  styleUrl: './main-page.component.scss'
+  styleUrl: './main-page.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MainPageComponent implements OnDestroy {
   constructor(
     private _dialog: MatDialog,
-    private _hoursManagementService: HoursManagementService
+    private _hoursManagementService: HoursManagementService,
+    private _cdRef:ChangeDetectorRef
   ) {
     this.organizedRegistrySubscription = this._hoursManagementService.organizedHoursByMonth$
       .subscribe((organizedRegistry) => {
         this.organizedRegistry = organizedRegistry
+        this._cdRef.markForCheck()
       })
   }
 
