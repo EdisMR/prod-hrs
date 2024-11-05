@@ -140,7 +140,7 @@ export class HoursManagementService {
       }
       if (elm.base === 'extended') {
         result.new_albany.targetHours += (12)
-        result.costa_rica.targetHours += (11.25)
+        result.costa_rica.targetHours += (7.25)
       }
     })
     result.daysRegisteredTotal = Number(result.daysRegisteredTotal.toFixed(4).replace(/\.?0+$/, ""))
