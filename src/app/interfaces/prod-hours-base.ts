@@ -3,7 +3,7 @@ export interface ProdHoursBase {
 	date_created: string;
 	date: string;
 	hours: number;
-	base: "7.25" | "11.25";
+	base: "main" | "extended";
 }
 
 export interface organizedHoursByMonth {

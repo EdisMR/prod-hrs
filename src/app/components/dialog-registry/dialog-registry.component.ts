@@ -27,7 +27,7 @@ export class DialogRegistryComponent {
         date_created: new Date().valueOf().toString(),
         date: new Date().valueOf().toString(),
         hours: 0,
-        base: "7.25"
+        base: "main"
       }
     }
     this.buildFormRegistry()
@@ -41,20 +41,15 @@ export class DialogRegistryComponent {
     let dateCreated:any = new Date(Number(this.data.registry.date_created)) || new Date()
     let date:any = new Date(Number(this.data.registry.date)) || new Date()
 
-    if(!(dateCreated.getDate())){
-      dateCreated=""
-    }
-
-    if(!(date.getDate())){
-      date=""
-    }
+    dateCreated = dateCreated?.toDateString() === 'Invalid Date' ? '' : dateCreated;
+    date = date?.toDateString() === 'Invalid Date' ? '' : date;
 
     this.formRegistry = this._fb.group({
       id: [this.data.registry.id || new Date().valueOf().toString(36)],
       date_created: [dateCreated || new Date()],
       date: [date || new Date()],
       hours: [this.data.registry.hours || ""],
-      base: [(this.data.registry.base) || "7.25"],
+      base: [(this.data.registry.base) || "main"],
     })
 
     this.formRegistry.valueChanges.subscribe((registry) => {

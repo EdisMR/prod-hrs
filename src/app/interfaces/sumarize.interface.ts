@@ -3,9 +3,17 @@ export interface sumarizeInterface {
 	year:string,
 	daysRegisteredQuantity:number,
 	daysRegisteredTotal:number,
-	targetHours:number,
-	debtHours:string,
-	exceedHours:string,
-	productivityAewAlbany:string,
-	productivityCostaRica:string
+
+	costa_rica:{
+		targetHours:number,
+		debtHours:number,
+		exceedHours:number,
+		productivity:string
+	},
+	new_albany:{
+		targetHours:number,
+		debtHours:number,
+		exceedHours:number,
+		productivity:string
+	}
 }

@@ -8,22 +8,24 @@ import { SnackbarService } from './snackbar.service';
   providedIn: 'root'
 })
 export class HoursManagementService {
+  private readonly REGISTERED_HOURS_LOCALSTORAGE_NAME = 'registeredHoursv3';
 
   constructor(
     private _snackbar: SnackbarService
   ) {
-
-    this.registeredHoursSource = JSON.parse(localStorage.getItem('registeredHoursv2') || '[]');
+    this.registeredHoursSource = JSON.parse(localStorage.getItem(this.REGISTERED_HOURS_LOCALSTORAGE_NAME) || '[]');
     if (this.registeredHoursSource.length) {
       this.registeredHoursDispatcher.next(this.registeredHoursSource);
     }
+
+    this.convertV2toV3();
   }
 
   private registeredHoursSource: ProdHoursBase[] = []
   private registeredHoursDispatcher: BehaviorSubject<ProdHoursBase[]> = new BehaviorSubject<ProdHoursBase[]>(this.registeredHoursSource);
   public organizedHoursByMonth$: Observable<organizedHoursByMonth[]> = this.registeredHoursDispatcher.asObservable().pipe(
     tap(data => {
-      localStorage.setItem('registeredHoursv2', JSON.stringify(data));
+      localStorage.setItem(this.REGISTERED_HOURS_LOCALSTORAGE_NAME, JSON.stringify(data));
     }),
     map(registry => {
 
@@ -67,11 +69,13 @@ export class HoursManagementService {
     })
   );
 
-  addNewRegistry(registry: ProdHoursBase) {
+  addNewRegistry(registry: ProdHoursBase, force = false) {
 
     /* prevent repeated dates (based on day and month number) */
     if (this.registeredHoursSource.find(reg => new Date(Number(reg.date)).getDate() === new Date(Number(registry.date)).getDate() && new Date(Number(reg.date)).getMonth() === new Date(Number(registry.date)).getMonth())) {
-      this._snackbar.error('Ya existe un registro para esta fecha');
+      if (!force) {
+        this._snackbar.error('Ya existe un registro para esta fecha');
+      }
       return;
     }
 
@@ -103,38 +107,67 @@ export class HoursManagementService {
 
   getSumarizedHoursByMonth(month: organizedHoursByMonth): sumarizeInterface {
 
-    let result: sumarizeInterface = {} as sumarizeInterface
-    result.debtHours = "0"
-    result.exceedHours = "0"
-    result.productivityAewAlbany = "0"
-    result.productivityCostaRica = "0"
+    let result: sumarizeInterface = {
+      year: '',
+      month: '',
+      daysRegisteredQuantity: 0,
+      daysRegisteredTotal: 0,
+      new_albany: {
+        targetHours: 0,
+        debtHours: 0,
+        exceedHours: 0,
+        productivity: ''
+      },
+      costa_rica: {
+        targetHours: 0,
+        debtHours: 0,
+        exceedHours: 0,
+        productivity: ''
+      },
+    }
 
     result.year = month.year
     result.month = month.monthName
     result.daysRegisteredQuantity = 0
     result.daysRegisteredTotal = 0
-    result.targetHours = 0
 
     month.registry.forEach(elm => {
       result.daysRegisteredQuantity++
       result.daysRegisteredTotal += elm.hours
-      result.targetHours += Number(elm.base)
+      if (elm.base === 'main') {
+        result.new_albany.targetHours += (8)
+        result.costa_rica.targetHours += (7.25)
+      }
+      if (elm.base === 'extended') {
+        result.new_albany.targetHours += (12)
+        result.costa_rica.targetHours += (11.25)
+      }
     })
-
-    /* Productivity New Albany */
-    result.productivityAewAlbany = ((result.daysRegisteredTotal * 100) / (result.targetHours)).toFixed(4).replace(/\.?0+$/, "")
-    result.productivityCostaRica = ((result.daysRegisteredTotal * 100) / (result.daysRegisteredQuantity * (7.25))).toFixed(4).replace(/\.?0+$/, "")
-
     result.daysRegisteredTotal = Number(result.daysRegisteredTotal.toFixed(4).replace(/\.?0+$/, ""))
 
-    let calculus = result.daysRegisteredTotal - result.targetHours
-    if (calculus < 0) {
-      result.debtHours = (calculus * -1).toFixed(4).replace(/\.?0+$/, "")
-      result.exceedHours = "0"
-    }
+
+    /* Results New Albany */
+    result.new_albany.productivity = ((result.daysRegisteredTotal / result.new_albany.targetHours) * 100).toFixed(2)
+    let calculus = result.new_albany.targetHours - result.daysRegisteredTotal
     if (calculus > 0) {
-      result.debtHours = "0"
-      result.exceedHours = calculus.toFixed(4).replace(/\.?0+$/, "")
+      result.new_albany.debtHours = calculus
+      result.new_albany.debtHours = Number(result.new_albany.debtHours.toFixed(4).replace(/\.?0+$/, ""))
+    }
+    if (calculus < 0) {
+      result.new_albany.exceedHours = -calculus
+      result.new_albany.exceedHours = Number(result.new_albany.exceedHours.toFixed(4).replace(/\.?0+$/, ""))
+    }
+
+    /* Results Costa Rica */
+    result.costa_rica.productivity = ((result.daysRegisteredTotal / result.costa_rica.targetHours) * 100).toFixed(2)
+    calculus = result.costa_rica.targetHours - result.daysRegisteredTotal
+    if (calculus > 0) {
+      result.costa_rica.debtHours = calculus
+      result.costa_rica.debtHours = Number(result.costa_rica.debtHours.toFixed(4).replace(/\.?0+$/, ""))
+    }
+    if (calculus < 0) {
+      result.costa_rica.exceedHours = -calculus
+      result.costa_rica.exceedHours = Number(result.costa_rica.exceedHours.toFixed(4).replace(/\.?0+$/, ""))
     }
 
     return result
@@ -158,6 +191,22 @@ export class HoursManagementService {
 
       this._snackbar.success('Importación de datos exitosa')
     })
+  }
+
+  convertV2toV3() {
+    let dataFromLocalstorage = JSON.parse(localStorage.getItem("registeredHoursv2") || '[]')
+
+    dataFromLocalstorage.forEach((elm: any) => {
+      if (elm.base === "7.25") {
+        elm.base = 'main'
+      }
+      if (elm.base === "11.25") {
+        elm.base = 'extended'
+      }
+      this.addNewRegistry(elm, true)
+    })
+
+    localStorage.removeItem("registeredHoursv2")
   }
 
   clearRegistryList() {

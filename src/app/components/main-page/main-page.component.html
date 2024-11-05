@@ -44,8 +44,15 @@
 
 					<!-- Symbol Column -->
 					<ng-container matColumnDef="base">
-						<th mat-header-cell *matHeaderCellDef> Base </th>
-						<td mat-cell *matCellDef="let element"> {{element.base}} </td>
+						<th mat-header-cell *matHeaderCellDef> Jornada </th>
+						<td mat-cell *matCellDef="let element">
+							@if(element.base == 'extended') {
+								Horas extra
+							}
+							@else {
+								Normal
+							}
+						</td>
 					</ng-container>
 
 					<!-- btn actions -->

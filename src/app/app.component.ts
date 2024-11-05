@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { environment } from '../environments/environment';
 import { DialogClearRegistryComponent } from './components/dialog-clear-data/dialog-clear-data.component';
 import { DialogExportRegistryComponent } from './components/dialog-export-data/dialog-export-data.component';
 import { DialogImportRegistryComponent } from './components/dialog-import-data/dialog-import-data.component';
@@ -21,6 +22,8 @@ export class AppComponent {
   ) { }
 
   currentYear = new Date().getFullYear()
+  currentAppVersion = environment.app_version_number
+  currentAppVersionDate = new Date(environment.app_version_date)
 
   sharePage() {
     navigator.clipboard.writeText(window.location.href)
