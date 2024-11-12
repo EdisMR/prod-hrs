@@ -70,35 +70,46 @@ export class HoursManagementService {
   );
 
   addNewRegistry(registry: ProdHoursBase, force = false) {
-
     /* prevent repeated dates (based on day and month number) */
     if (this.registeredHoursSource.find(reg => new Date(Number(reg.date)).getDate() === new Date(Number(registry.date)).getDate() && new Date(Number(reg.date)).getMonth() === new Date(Number(registry.date)).getMonth())) {
       if (!force) {
-        this._snackbar.error('Ya existe un registro para esta fecha');
+        this._snackbar.error('⛔ Ya existe un registro para esta fecha');
       }
       return;
+    } else {
+      this.registeredHoursSource.push(registry);
+      this.registeredHoursDispatcher.next(this.registeredHoursSource);
+      this._snackbar.success('✅ Registro creado');
     }
-
-
-    this.registeredHoursSource.push(registry);
-    this.registeredHoursDispatcher.next(this.registeredHoursSource);
   }
 
   removeRegistry(id: string) {
     this.registeredHoursSource = this.registeredHoursSource.filter(registry => registry.id !== id);
     this.registeredHoursDispatcher.next(this.registeredHoursSource);
-    this._snackbar.success('Registro eliminado');
+    this._snackbar.success('⚠️ Registro eliminado');
   }
 
   modifyRegistry(id: string, registry: ProdHoursBase) {
+    let efectivelyModified = false
     this.registeredHoursSource = this.registeredHoursSource.map(reg => {
       if (reg.id === id) {
-        return registry;
+        if (reg.hours === registry.hours && reg.base === registry.base) {
+          efectivelyModified = false
+          return reg
+        } else {
+          efectivelyModified = true
+          return registry;
+        }
       }
       return reg;
     });
-    this.registeredHoursDispatcher.next(this.registeredHoursSource);
-    this._snackbar.success('Registro modificado');
+
+    if (efectivelyModified) {
+      this.registeredHoursDispatcher.next(this.registeredHoursSource);
+      this._snackbar.success('✅ Registro modificado');
+    } else {
+      this._snackbar.success('Sin cambios 👍');
+    }
   }
 
   getOneRegistry(id: string) {
@@ -176,7 +187,7 @@ export class HoursManagementService {
   exportHoursDetails() {
     //copy to clipboard
     navigator.clipboard.writeText(JSON.stringify(this.registeredHoursSource)).then(e => {
-      this._snackbar.success('Exportación de datos exitosa')
+      this._snackbar.success('✅ Exportación de datos exitosa')
     })
   }
 
@@ -189,7 +200,7 @@ export class HoursManagementService {
         this.addNewRegistry(elm)
       })
 
-      this._snackbar.success('Importación de datos exitosa')
+      this._snackbar.success('✅ Importación de datos exitosa')
     })
   }
 
@@ -212,7 +223,7 @@ export class HoursManagementService {
   clearRegistryList() {
     this.registeredHoursSource = []
     this.registeredHoursDispatcher.next(this.registeredHoursSource)
-    this._snackbar.success('Todos los registros eliminados')
+    this._snackbar.success('⚠️ Todos los registros eliminados')
   }
 
 }

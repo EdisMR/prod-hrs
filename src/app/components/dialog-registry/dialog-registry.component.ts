@@ -38,8 +38,8 @@ export class DialogRegistryComponent {
   formRegistry!: FormGroup
   buildFormRegistry() {
 
-    let dateCreated:any = new Date(Number(this.data.registry.date_created)) || new Date()
-    let date:any = new Date(Number(this.data.registry.date)) || new Date()
+    let dateCreated: any = new Date(Number(this.data.registry.date_created)) || new Date()
+    let date: any = new Date(Number(this.data.registry.date)) || new Date()
 
     dateCreated = dateCreated?.toDateString() === 'Invalid Date' ? '' : dateCreated;
     date = date?.toDateString() === 'Invalid Date' ? '' : date;
@@ -53,11 +53,13 @@ export class DialogRegistryComponent {
     })
 
     this.formRegistry.valueChanges.subscribe((registry) => {
+
       registry.date_created = new Date(Number(registry.date_created)).valueOf().toString()
       registry.date = new Date(Number(registry.date)).valueOf().toString()
-      if(registry.hours == ""){
+      if (registry.hours == "") {
         registry.hours = 0
       }
+
       this.registry = registry
     })
   }
