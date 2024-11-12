@@ -23,6 +23,7 @@ export class AppComponent {
 
   currentYear = new Date().getFullYear()
   currentAppVersion = environment.app_version_number
+  envBuildCounter = environment.buildCounter
   currentAppVersionDate = new Date(environment.app_version_date)
 
   sharePage() {
