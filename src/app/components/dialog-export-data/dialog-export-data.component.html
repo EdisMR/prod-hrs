@@ -3,8 +3,12 @@
 		Exportar Datos
 	</h2>
 	<mat-dialog-content class="mat-typography no-scroll-correction">
-		<p>Para exportar los datos por favor permita el acceso de esta página al portapapeles.</p>
+		<p>Para exportar los datos al portapapeles por favor permita el acceso de esta página al portapapeles.</p>
 		<p>Una vez copiados los datos, envialos al dispositivo donde realizarás la importación.</p>
+		<br>
+		<p>Otra opción es descargar los datos como archivo para realizar la importación.</p>
+		<p>Una vez descargado el archivo ábrelo en el dispositivo donde realizarás la importación y copias los datos.</p>
+		<a mat-button [href]="link" [download]="filename">Descargar datos como archivo</a>
 	</mat-dialog-content>
 	<mat-dialog-actions align="end">
 		<button mat-stroked-button mat-dialog-close>Cancelar</button>

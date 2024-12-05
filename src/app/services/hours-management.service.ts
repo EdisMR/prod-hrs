@@ -21,7 +21,7 @@ export class HoursManagementService {
     this.convertV2toV3();
   }
 
-  private registeredHoursSource: ProdHoursBase[] = []
+  public registeredHoursSource: ProdHoursBase[] = []
   private registeredHoursDispatcher: BehaviorSubject<ProdHoursBase[]> = new BehaviorSubject<ProdHoursBase[]>(this.registeredHoursSource);
   public organizedHoursByMonth$: Observable<organizedHoursByMonth[]> = this.registeredHoursDispatcher.asObservable().pipe(
     tap(data => {
@@ -195,7 +195,20 @@ export class HoursManagementService {
     //paste from clipboard
     navigator.clipboard.readText().then(e => {
       //combine data
-      let importedData: ProdHoursBase[] = JSON.parse(e)
+      e.trim()
+      e = e.replace(/'/g, '"')
+      let importedData: ProdHoursBase[] = []
+      try {
+        importedData = JSON.parse(e)
+      } catch (error) {
+        if (error instanceof SyntaxError) {
+          this._snackbar.error('⚠️ Error: Formato de datos incorrecto. Por favor, revise el contenido del portapapeles y vuelva a intentarlo.')
+          return
+        } else {
+          this._snackbar.errorFlash('⚠️ Error al importar los datos')
+        }
+        return
+      }
       importedData.forEach(elm => {
         this.addNewRegistry(elm)
       })
