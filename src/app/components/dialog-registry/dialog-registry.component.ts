@@ -26,7 +26,7 @@ export class DialogRegistryComponent {
         id: new Date().valueOf().toString(36),
         date_created: new Date().valueOf().toString(),
         date: new Date().valueOf().toString(),
-        hours: 0,
+        hours: "0.0000",
         base: "main"
       }
     }
@@ -54,13 +54,14 @@ export class DialogRegistryComponent {
 
     this.formRegistry.valueChanges.subscribe((registry) => {
 
+
       registry.date_created = new Date(Number(registry.date_created)).valueOf().toString()
       registry.date = new Date(Number(registry.date)).valueOf().toString()
       if (registry.hours == "") {
         registry.hours = 0
       }
-
       this.registry = registry
+      this.registry.hours = Number(this.registry.hours).toFixed(4)
     })
   }
 

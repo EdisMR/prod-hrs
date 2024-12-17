@@ -4,16 +4,16 @@
 	</h2>
 	<mat-dialog-content class="mat-typography no-scroll-correction mat-body-large">
 		Has registrado {{data.sumarize.daysRegisteredQuantity}} días que suman
-		{{data.sumarize.daysRegisteredTotal}} horas de producción.<br>
+		{{data.sumarize.daysRegisteredTotal.toFixed(4)}} horas de producción.<br>
 		<br>
 		<hr>
 		<strong>New Albany</strong>
 		<p>El objetivo es {{data.sumarize.new_albany.targetHours}} horas.
 			@if(data.sumarize.new_albany.debtHours > 0) {
-			Tienes un faltante de {{data.sumarize.new_albany.debtHours}} horas.
+			Tienes un faltante de {{data.sumarize.new_albany.debtHours.toFixed(4)}} horas.
 			}
 			@if(data.sumarize.new_albany.exceedHours > 0) {
-			Tienes un excedente de {{data.sumarize.new_albany.exceedHours}} horas.
+			Tienes un excedente de {{data.sumarize.new_albany.exceedHours.toFixed(4)}} horas.
 			}
 			Se obtiene una productividad de {{data.sumarize.new_albany.productivity}}%
 		</p>
@@ -21,10 +21,10 @@
 		<strong>Costa Rica</strong>
 		<p>El objetivo es {{data.sumarize.costa_rica.targetHours}} horas.
 			@if(data.sumarize.costa_rica.debtHours > 0) {
-			Tienes un faltante de {{data.sumarize.costa_rica.debtHours}} horas.
+			Tienes un faltante de {{data.sumarize.costa_rica.debtHours.toFixed(4)}} horas.
 			}
 			@if(data.sumarize.costa_rica.exceedHours > 0) {
-			Tienes un excedente de {{data.sumarize.costa_rica.exceedHours}} horas.
+			Tienes un excedente de {{data.sumarize.costa_rica.exceedHours.toFixed(4)}} horas.
 			}
 			Se obtiene una productividad de {{data.sumarize.costa_rica.productivity}}%
 		</p>

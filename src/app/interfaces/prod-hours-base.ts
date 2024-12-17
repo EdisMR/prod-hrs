@@ -2,7 +2,7 @@ export interface ProdHoursBase {
 	id: string;
 	date_created: string;
 	date: string;
-	hours: number;
+	hours: string;
 	base: "main" | "extended";
 }
 

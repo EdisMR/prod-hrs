@@ -18,7 +18,8 @@ export class HoursManagementService {
       this.registeredHoursDispatcher.next(this.registeredHoursSource);
     }
 
-    this.convertV2toV3();
+    this.convertV2toV3()
+    this.correctionForDateFormat()
   }
 
   public registeredHoursSource: ProdHoursBase[] = []
@@ -144,7 +145,7 @@ export class HoursManagementService {
 
     month.registry.forEach(elm => {
       result.daysRegisteredQuantity++
-      result.daysRegisteredTotal += elm.hours
+      result.daysRegisteredTotal += Number.parseFloat(elm.hours)
       if (elm.base === 'main') {
         result.new_albany.targetHours += (8)
         result.costa_rica.targetHours += (7.25)
@@ -154,7 +155,7 @@ export class HoursManagementService {
         result.costa_rica.targetHours += (7.25)
       }
     })
-    result.daysRegisteredTotal = Number(result.daysRegisteredTotal.toFixed(4).replace(/\.?0+$/, ""))
+    result.daysRegisteredTotal = Number(result.daysRegisteredTotal.toFixed(4))
 
 
     /* Results New Albany */
@@ -162,11 +163,11 @@ export class HoursManagementService {
     let calculus = result.new_albany.targetHours - result.daysRegisteredTotal
     if (calculus > 0) {
       result.new_albany.debtHours = calculus
-      result.new_albany.debtHours = Number(result.new_albany.debtHours.toFixed(4).replace(/\.?0+$/, ""))
+      result.new_albany.debtHours = Number(result.new_albany.debtHours.toFixed(4))
     }
     if (calculus < 0) {
       result.new_albany.exceedHours = -calculus
-      result.new_albany.exceedHours = Number(result.new_albany.exceedHours.toFixed(4).replace(/\.?0+$/, ""))
+      result.new_albany.exceedHours = Number(result.new_albany.exceedHours.toFixed(4))
     }
 
     /* Results Costa Rica */
@@ -174,11 +175,11 @@ export class HoursManagementService {
     calculus = result.costa_rica.targetHours - result.daysRegisteredTotal
     if (calculus > 0) {
       result.costa_rica.debtHours = calculus
-      result.costa_rica.debtHours = Number(result.costa_rica.debtHours.toFixed(4).replace(/\.?0+$/, ""))
+      result.costa_rica.debtHours = Number(result.costa_rica.debtHours.toFixed(4))
     }
     if (calculus < 0) {
       result.costa_rica.exceedHours = -calculus
-      result.costa_rica.exceedHours = Number(result.costa_rica.exceedHours.toFixed(4).replace(/\.?0+$/, ""))
+      result.costa_rica.exceedHours = Number(result.costa_rica.exceedHours.toFixed(4))
     }
 
     return result
@@ -217,6 +218,12 @@ export class HoursManagementService {
     })
   }
 
+  clearRegistryList() {
+    this.registeredHoursSource = []
+    this.registeredHoursDispatcher.next(this.registeredHoursSource)
+    this._snackbar.success('⚠️ Todos los registros eliminados')
+  }
+
   convertV2toV3() {
     let dataFromLocalstorage = JSON.parse(localStorage.getItem("registeredHoursv2") || '[]')
 
@@ -233,10 +240,10 @@ export class HoursManagementService {
     localStorage.removeItem("registeredHoursv2")
   }
 
-  clearRegistryList() {
-    this.registeredHoursSource = []
-    this.registeredHoursDispatcher.next(this.registeredHoursSource)
-    this._snackbar.success('⚠️ Todos los registros eliminados')
+  correctionForDateFormat() {
+    this.registeredHoursSource.forEach(elm => {
+      elm.hours = Number(elm.hours).toFixed(4)
+    })
   }
 
 }
