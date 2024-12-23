@@ -19,11 +19,16 @@ export class DialogExportRegistryComponent {
     private _snackbar: SnackbarService
   ) {
     this.downloadInfoAsFile();
+
+    let date = new Date()
+    this.filename = `horas-produccion-${date.getFullYear()}${((date.getMonth()+1).toString().padStart(2, "0"))}${date.getDate().toString().padStart(2, "0")}${date.getHours().toString().padStart(2, "0")}${date.getMinutes().toString().padStart(2, "0")}${date.getSeconds().toString().padStart(2, "0")}`
+    console.log(this.filename)
   }
 
   realData: ProdHoursBase[] = [];
   link: string = '';
-  filename: string = 'export.txt';
+  filename: string = '';
+
   downloadInfoAsFile() {
     this.realData = this.hoursManagementService.registeredHoursSource;
     try {
