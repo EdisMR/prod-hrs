@@ -188,7 +188,7 @@ export class HoursManagementService {
   exportHoursDetails() {
     //copy to clipboard
     navigator.clipboard.writeText(JSON.stringify(this.registeredHoursSource)).then(e => {
-      this._snackbar.success('✅ Exportación de datos exitosa')
+      this._snackbar.success('✅ Datos copiados exitosamente')
     })
   }
 
