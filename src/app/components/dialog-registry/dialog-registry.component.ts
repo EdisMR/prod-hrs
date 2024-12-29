@@ -47,7 +47,7 @@ export class DialogRegistryComponent {
     this.formRegistry = this._fb.group({
       id: [this.data.registry.id || new Date().valueOf().toString(36)],
       date_created: [dateCreated || new Date()],
-      date: [date || new Date()],
+      date: [date || ""],
       hours: [this.data.registry.hours || ""],
       base: [(this.data.registry.base) || "main"],
     })

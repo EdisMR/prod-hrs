@@ -39,7 +39,7 @@ h1 {
 }
 
 .min-visual-display {
-	min-height: 62vh;
+	min-height: 65vh;
 }
 
 .actions-btn-container {
@@ -48,7 +48,7 @@ h1 {
 	}
 }
 
-.no-registry-title{
+.no-registry-title {
 	color: #7c7c7c;
 }
 
@@ -62,5 +62,9 @@ h1 {
 
 	h1 {
 		font-size: 23px;
+	}
+
+	.min-visual-display {
+		min-height: 52vh;
 	}
 }

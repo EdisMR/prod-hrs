@@ -1,7 +1,7 @@
 <section>
 	<h2 mat-dialog-title>
 		@if (data.mode == 'create') {
-		<span>Añadir registro nuevo</span>
+		<span>Registro nuevo</span>
 		}
 		@if (data.mode == 'modify') {
 		<span>Actualizar registro</span>
@@ -23,7 +23,7 @@
 			<mat-radio-group aria-label="Selecione una hora base" formControlName="base">
 				<mat-label>Jornada de trabajo</mat-label><br>
 				<mat-radio-button value="main">Normal</mat-radio-button><br>
-				<mat-radio-button value="extended">Horas Extra</mat-radio-button>
+				<mat-radio-button value="extended">Con Horas Extra</mat-radio-button>
 			</mat-radio-group>
 		</form>
 	</mat-dialog-content>
