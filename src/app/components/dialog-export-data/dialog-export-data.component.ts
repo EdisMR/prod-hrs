@@ -21,8 +21,7 @@ export class DialogExportRegistryComponent {
     this.downloadInfoAsFile();
 
     let date = new Date()
-    this.filename = `horas-produccion-${date.getFullYear()}${((date.getMonth()+1).toString().padStart(2, "0"))}${date.getDate().toString().padStart(2, "0")}${date.getHours().toString().padStart(2, "0")}${date.getMinutes().toString().padStart(2, "0")}${date.getSeconds().toString().padStart(2, "0")}`
-    console.log(this.filename)
+    this.filename = `horas-produccion-${date.getFullYear()}${(this.padStartFn((date.getMonth() + 1).toString(),2,"0"))}${this.padStartFn(date.getDate().toString(),2,"0")}${this.padStartFn(date.getHours().toString(),2,"0")}${this.padStartFn(date.getMinutes().toString(),2, "0")}${this.padStartFn(date.getSeconds().toString(),2, "0")}`
   }
 
   realData: ProdHoursBase[] = [];
@@ -35,12 +34,25 @@ export class DialogExportRegistryComponent {
       const blobJSONFile: Blob = new Blob([JSON.stringify(this.realData)], { type: 'application/json' });
       this.link = URL.createObjectURL(blobJSONFile);
     } catch (error) {
-      console.error(error);
       this._snackbar.errorFlash('⚠️ Error al convertir los datos en un archivo.');
     }
     if (this.realData.length == 0) {
       this._snackbar.warnFlash('💭 No hay datos disponibles para exportar.');
     }
+  }
+
+  padStartFn(origin:string,maxLength: number, fillString: string): string {
+    //js padStart like function
+    let result:string = ""
+    let currentLength:number = origin.length
+
+    //use origin string as initial value. Then add fillString until maxLength is reached
+    result = origin
+    while(currentLength < maxLength){
+      result = fillString + result
+      currentLength++
+    }
+    return result
   }
 
 }

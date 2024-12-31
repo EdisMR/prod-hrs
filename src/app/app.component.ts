@@ -29,8 +29,9 @@ export class AppComponent {
   sharePage() {
     navigator.clipboard.writeText(window.location.href)
       .then(() => {
-        this._snackbar.success('Copiado al portapapeles.')
-      });
+        this._snackbar.successConfirmation('Copiado al portapapeles.')
+      })
+      .catch(e => { })
 
     /* open application share windows */
     navigator.share({

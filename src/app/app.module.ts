@@ -27,7 +27,6 @@ import { DialogRegistryComponent } from './components/dialog-registry/dialog-reg
 import { DialogRemoveRegistryComponent } from './components/dialog-remove/dialog-registry.component';
 import { DialogResultRegistryComponent } from './components/dialog-result/dialog-result.component';
 import { MainPageComponent } from './components/main-page/main-page.component';
-import { ProdInfoFromIdPipe } from './pipes/prod-info-from-id.pipe';
 
 // Registra los datos de localización para español
 registerLocaleData(localeEs, 'es');
@@ -56,7 +55,6 @@ const materialImports = [
     DialogRegistryComponent,
     DialogRemoveRegistryComponent,
     DialogResultRegistryComponent,
-    ProdInfoFromIdPipe,
     DialogExportRegistryComponent,
     DialogImportRegistryComponent,
     DialogClearRegistryComponent,

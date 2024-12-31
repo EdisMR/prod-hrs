@@ -17,9 +17,6 @@ export class HoursManagementService {
     if (this.registeredHoursSource.length) {
       this.registeredHoursDispatcher.next(this.registeredHoursSource);
     }
-
-    this.convertV2toV3()
-    this.correctionForDateFormat()
   }
 
   public registeredHoursSource: ProdHoursBase[] = []
@@ -71,8 +68,8 @@ export class HoursManagementService {
   );
 
   addNewRegistry(registry: ProdHoursBase, force = false) {
-    /* prevent repeated dates (based on day and month number) */
-    if (this.registeredHoursSource.find(reg => new Date(Number(reg.date)).getDate() === new Date(Number(registry.date)).getDate() && new Date(Number(reg.date)).getMonth() === new Date(Number(registry.date)).getMonth())) {
+    /* prevent repeated dates (based on day, month and year) */
+    if (this.registeredHoursSource.find(reg => new Date(Number(reg.date)).getDate() === new Date(Number(registry.date)).getDate() && new Date(Number(reg.date)).getMonth() === new Date(Number(registry.date)).getMonth() && new Date(Number(reg.date)).getFullYear() === new Date(registry.date).getFullYear())) {
       if (!force) {
         this._snackbar.error('⛔ Ya existe un registro para esta fecha');
       }
@@ -187,17 +184,18 @@ export class HoursManagementService {
 
   exportHoursDetails() {
     //copy to clipboard
-    navigator.clipboard.writeText(JSON.stringify(this.registeredHoursSource)).then(e => {
+    navigator.clipboard.writeText(JSON.stringify(this.registeredHoursSource)).then((e: void) => {
       this._snackbar.success('✅ Datos copiados exitosamente')
     })
+      .then(() => { })
+      .catch(e => { })
   }
 
   importHoursDetails() {
     //paste from clipboard
-    navigator.clipboard.readText().then(e => {
+    navigator.clipboard.readText().then((e: string) => {
       //combine data
       e.trim()
-      e = e.replace(/'/g, '"')
       let importedData: ProdHoursBase[] = []
       try {
         importedData = JSON.parse(e)
@@ -216,34 +214,13 @@ export class HoursManagementService {
 
       this._snackbar.success('✅ Importación de datos exitosa')
     })
+      .catch(e => { })
   }
 
   clearRegistryList() {
     this.registeredHoursSource = []
     this.registeredHoursDispatcher.next(this.registeredHoursSource)
     this._snackbar.success('⚠️ Todos los registros eliminados')
-  }
-
-  convertV2toV3() {
-    let dataFromLocalstorage = JSON.parse(localStorage.getItem("registeredHoursv2") || '[]')
-
-    dataFromLocalstorage.forEach((elm: any) => {
-      if (elm.base === "7.25") {
-        elm.base = 'main'
-      }
-      if (elm.base === "11.25") {
-        elm.base = 'extended'
-      }
-      this.addNewRegistry(elm, true)
-    })
-
-    localStorage.removeItem("registeredHoursv2")
-  }
-
-  correctionForDateFormat() {
-    this.registeredHoursSource.forEach(elm => {
-      elm.hours = Number(elm.hours).toFixed(4)
-    })
   }
 
 }
