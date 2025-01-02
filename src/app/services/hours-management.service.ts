@@ -184,36 +184,37 @@ export class HoursManagementService {
 
   exportHoursDetails() {
     //copy to clipboard
-    navigator.clipboard.writeText(JSON.stringify(this.registeredHoursSource)).then((e: void) => {
-      this._snackbar.success('✅ Datos copiados exitosamente')
-    })
-      .then(() => { })
+    navigator.clipboard.writeText(JSON.stringify(this.registeredHoursSource))
+      .then((e: void) => {
+        this._snackbar.success('✅ Datos copiados exitosamente')
+      })
       .catch(e => { })
   }
 
   importHoursDetails() {
     //paste from clipboard
-    navigator.clipboard.readText().then((e: string) => {
-      //combine data
-      e.trim()
-      let importedData: ProdHoursBase[] = []
-      try {
-        importedData = JSON.parse(e)
-      } catch (error) {
-        if (error instanceof SyntaxError) {
-          this._snackbar.error('⚠️ Error: Formato de datos incorrecto. Por favor, revise el contenido del portapapeles y vuelva a intentarlo.')
+    navigator.clipboard.readText()
+      .then((e: string) => {
+        //combine data
+        e.trim()
+        let importedData: ProdHoursBase[] = []
+        try {
+          importedData = JSON.parse(e)
+        } catch (error) {
+          if (error instanceof SyntaxError) {
+            this._snackbar.error('⚠️ Error: Formato de datos incorrecto. Por favor, revise el contenido del portapapeles y vuelva a intentarlo.')
+            return
+          } else {
+            this._snackbar.errorFlash('⚠️ Error al importar los datos')
+          }
           return
-        } else {
-          this._snackbar.errorFlash('⚠️ Error al importar los datos')
         }
-        return
-      }
-      importedData.forEach(elm => {
-        this.addNewRegistry(elm)
-      })
+        importedData.forEach(elm => {
+          this.addNewRegistry(elm)
+        })
 
-      this._snackbar.success('✅ Importación de datos exitosa')
-    })
+        this._snackbar.success('✅ Importación de datos exitosa')
+      })
       .catch(e => { })
   }
 

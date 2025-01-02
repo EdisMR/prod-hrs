@@ -2,8 +2,15 @@
 <div class="center-share-page">
 	<button mat-raised-button (click)="exportData()">Exportar Datos</button>
 	<button mat-raised-button (click)="importData()">Importar Datos</button>
-	<button mat-raised-button (click)="clearData()">Eliminar Datos</button>
 	<button mat-raised-button (click)="sharePage()">Compartir esta página</button>
+</div>
+
+<div class="center-share-page">
+	<details>
+		<summary>Eliminar datos</summary>
+		<br>
+		<button mat-raised-button (click)="clearData()">Eliminar Todos los Datos</button>
+	</details>
 </div>
 
 <mat-toolbar class="footer">
