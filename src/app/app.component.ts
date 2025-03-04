@@ -4,6 +4,7 @@ import { environment } from '../environments/environment';
 import { DialogClearRegistryComponent } from './components/dialog-clear-data/dialog-clear-data.component';
 import { DialogExportRegistryComponent } from './components/dialog-export-data/dialog-export-data.component';
 import { DialogImportRegistryComponent } from './components/dialog-import-data/dialog-import-data.component';
+import { DialogTutorialComponent } from './components/dialog-tutorial/dialog-tutorial.component';
 import { HoursManagementService } from './services/hours-management.service';
 import { SnackbarService } from './services/snackbar.service';
 
@@ -67,5 +68,9 @@ export class AppComponent {
         this._hoursSvc.clearRegistryList()
       }
     })
+  }
+
+  displayTutorial() {
+    this._dialog.open(DialogTutorialComponent)
   }
 }

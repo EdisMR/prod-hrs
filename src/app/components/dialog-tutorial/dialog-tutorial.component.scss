@@ -1,0 +1,15 @@
+form {
+	display: flex;
+	flex-direction: column;
+	gap: 0.5rem;
+}
+
+.no-scroll-correction {
+	overflow: hidden;
+}
+
+video {
+	height: 60vh;
+	width: 60vw;
+	object-fit: contain;
+}
