@@ -21,7 +21,7 @@ export class DialogExportRegistryComponent {
     this.downloadInfoAsFile();
 
     let date = new Date()
-    this.filename = `horas-produccion-${date.getFullYear()}${(this.padStartFn((date.getMonth() + 1).toString(),2,"0"))}${this.padStartFn(date.getDate().toString(),2,"0")}${this.padStartFn(date.getHours().toString(),2,"0")}${this.padStartFn(date.getMinutes().toString(),2, "0")}${this.padStartFn(date.getSeconds().toString(),2, "0")}`
+    this.filename = `horas-produccion-${date.getFullYear()}${(this.padStartFn((date.getMonth() + 1).toString(), 2, "0"))}${this.padStartFn(date.getDate().toString(), 2, "0")}${this.padStartFn(date.getHours().toString(), 2, "0")}${this.padStartFn(date.getMinutes().toString(), 2, "0")}${this.padStartFn(date.getSeconds().toString(), 2, "0")}`
   }
 
   realData: ProdHoursBase[] = [];
@@ -41,14 +41,14 @@ export class DialogExportRegistryComponent {
     }
   }
 
-  padStartFn(origin:string,maxLength: number, fillString: string): string {
+  padStartFn(origin: string, maxLength: number, fillString: string): string {
     //js padStart like function
-    let result:string = ""
-    let currentLength:number = origin.length
+    let result: string = ""
+    let currentLength: number = origin.length
 
     //use origin string as initial value. Then add fillString until maxLength is reached
     result = origin
-    while(currentLength < maxLength){
+    while (currentLength < maxLength) {
       result = fillString + result
       currentLength++
     }

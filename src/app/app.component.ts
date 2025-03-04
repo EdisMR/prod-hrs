@@ -47,9 +47,9 @@ export class AppComponent {
 
   exportData() {
     this._dialog.open(DialogExportRegistryComponent).afterClosed().subscribe((result) => {
-      if (result && result === true) {
+      /* if (result && result === true) {
         this._hoursSvc.exportHoursDetails()
-      }
+      } */
     })
   }
 

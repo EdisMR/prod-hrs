@@ -91,7 +91,7 @@ export class HoursManagementService {
     let efectivelyModified = false
     this.registeredHoursSource = this.registeredHoursSource.map(reg => {
       if (reg.id === id) {
-        if (reg.hours === registry.hours && reg.base === registry.base) {
+        if (reg.hours === registry.hours && reg.base === registry.base && reg.hours === registry.hours) {
           efectivelyModified = false
           return reg
         } else {
@@ -182,7 +182,7 @@ export class HoursManagementService {
     return result
   }
 
-  exportHoursDetails() {
+  private exportHoursDetails() { //EN DESUSO
     //copy to clipboard
     navigator.clipboard.writeText(JSON.stringify(this.registeredHoursSource))
       .then((e: void) => {
@@ -191,18 +191,24 @@ export class HoursManagementService {
       .catch(e => { })
   }
 
-  importHoursDetails() {
-    //paste from clipboard
-    navigator.clipboard.readText()
-      .then((e: string) => {
-        //combine data
-        e.trim()
+  async importHoursDetails() {
+    let fileInfo: any = null
+    const file_input = document.createElement('input');
+    file_input.addEventListener("change", (data) => {
+      fileInfo = data.target
+      if (fileInfo.files[0].type !== 'application/json') {
+        this._snackbar.error('⚠️ Error: Formato de archivo incorrecto. Por favor, revise el archivo y vuelva a intentarlo.')
+        return
+      }
+      const reader = new FileReader();
+      reader.readAsText(fileInfo.files[0]);
+      reader.onload = (e) => {
         let importedData: ProdHoursBase[] = []
         try {
-          importedData = JSON.parse(e)
+          importedData = JSON.parse(reader.result as string)
         } catch (error) {
           if (error instanceof SyntaxError) {
-            this._snackbar.error('⚠️ Error: Formato de datos incorrecto. Por favor, revise el contenido del portapapeles y vuelva a intentarlo.')
+            this._snackbar.error('⚠️ Error: Formato de datos incorrecto. Por favor, revise el contenido del archivo y vuelva a intentarlo.')
             return
           } else {
             this._snackbar.errorFlash('⚠️ Error al importar los datos')
@@ -212,10 +218,11 @@ export class HoursManagementService {
         importedData.forEach(elm => {
           this.addNewRegistry(elm)
         })
-
         this._snackbar.success('✅ Importación de datos exitosa')
-      })
-      .catch(e => { })
+      }
+    }, false);
+    file_input.type = 'file';
+    file_input.click();
   }
 
   clearRegistryList() {

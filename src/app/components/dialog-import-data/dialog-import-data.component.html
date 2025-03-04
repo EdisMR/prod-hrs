@@ -4,16 +4,16 @@
 	</h2>
 	<mat-dialog-content class="mat-typography no-scroll-correction">
 		<ul style="list-style-type: none;">
-			<li>● Por favor permite el acceso de esta página al portapapeles.</li>
-			<li>● Revisa el contenido del portapapeles para asegurarte de que el formato es el correcto.</li>
-			<li>● Una vez tengas copiados los datos que vas a importar, presiona el botón "Importar ahora".</li>
+			<li>● Para realizar la importación de los datos presiona el botón "importar datos ahora".</li>
+			<li>● En el diálogo de archivos, busca el archivo que contiene los datos y seleccionalo.</li>
 		</ul>
 		<br>
-		<strong>IMPORTANTE: los datos serán combinados y las fechas que ya están registradas no serán modificadas.</strong>
+		<strong>⚠️ IMPORTANTE: los datos serán combinados y las fechas que ya están registradas no serán
+			modificadas.</strong>
 	</mat-dialog-content>
 	<mat-dialog-actions align="end">
 		<button mat-stroked-button mat-dialog-close>Cancelar</button>
 		<button mat-stroked-button color="primary" [mat-dialog-close]="true" cdkFocusInitial><span>Importar
-				ahora</span></button>
+				datos ahora</span></button>
 	</mat-dialog-actions>
 </section>

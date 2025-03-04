@@ -3,17 +3,13 @@
 		Exportar Datos
 	</h2>
 	<mat-dialog-content class="mat-typography no-scroll-correction">
-		<p>Para exportar los datos al portapapeles por favor permita el acceso de esta página al portapapeles.</p>
-		<p>Una vez copiados los datos, envialos al dispositivo donde realizarás la importación.</p>
-		<br>
-		<p>Otra opción es descargar los datos como archivo para realizar la importación.</p>
-		<p>Una vez descargado el archivo ábrelo en el dispositivo donde realizarás la importación y copias los datos.</p>
+		<p>Los datos serán descargados como un archivo de texto en formato JSON.</p>
+		<p>Una vez descargados los datos, envialos al dispositivo donde realizarás la importación.</p>
+		<p>Para realizar la importación utiliza el botón "importar datos".</p>
 		<br>
 		<a mat-flat-button [href]="link" [download]="filename">Descargar datos como archivo</a>
 	</mat-dialog-content>
 	<mat-dialog-actions align="end">
-		<button mat-stroked-button mat-dialog-close>Cancelar</button>
-		<button mat-stroked-button color="primary" [mat-dialog-close]="true"
-			cdkFocusInitial><span>Continuar</span></button>
+		<button mat-stroked-button mat-dialog-close>Ok</button>
 	</mat-dialog-actions>
 </section>
