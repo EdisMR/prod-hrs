@@ -15,4 +15,11 @@ export class DialogTutorialComponent {
     },
   ) {
   }
+  playingFullscreen = false;
+  playFullscreen(video: any) {
+    if (video.target.requestFullscreen && !this.playingFullscreen) {
+      this.playingFullscreen = true;
+      video.target.requestFullscreen();
+    }
+  }
 }

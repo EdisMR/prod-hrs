@@ -7,7 +7,12 @@
 		<p>Una vez descargados los datos, envialos al dispositivo donde realizarás la importación.</p>
 		<p>Para realizar la importación utiliza el botón "importar datos".</p>
 		<br>
-		<a mat-flat-button [href]="link" [download]="filename">Descargar datos como archivo</a>
+		@if (!availableBTNToDownload) {
+		<p>Es necesario tener al menos un registro para poder exportar los datos.</p>
+		}
+		<br>
+		<a mat-flat-button [href]="link" [download]="filename" [disabled]="!availableBTNToDownload">Descargar datos como
+			archivo</a>
 	</mat-dialog-content>
 	<mat-dialog-actions align="end">
 		<button mat-stroked-button mat-dialog-close>Ok</button>

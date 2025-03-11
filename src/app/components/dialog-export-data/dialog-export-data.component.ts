@@ -27,6 +27,7 @@ export class DialogExportRegistryComponent {
   realData: ProdHoursBase[] = [];
   link: string = '';
   filename: string = '';
+  availableBTNToDownload: boolean = true;
 
   downloadInfoAsFile() {
     this.realData = this.hoursManagementService.registeredHoursSource;
@@ -37,6 +38,7 @@ export class DialogExportRegistryComponent {
       this._snackbar.errorFlash('⚠️ Error al convertir los datos en un archivo.');
     }
     if (this.realData.length == 0) {
+      this.availableBTNToDownload = false;
       this._snackbar.warnFlash('💭 No hay datos disponibles para exportar.');
     }
   }

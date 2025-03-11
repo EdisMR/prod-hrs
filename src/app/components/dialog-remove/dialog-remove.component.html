@@ -3,8 +3,16 @@
 		Eliminar registro
 	</h2>
 	<mat-dialog-content class="mat-typography no-scroll-correction">
-		<p>¿Deseas eliminar el registro del {{data.registry.date| date: 'EEEE d'}} de {{data.registry.date | date: 'MMMM'}}?</p>
-		<p>{{data.registry.hours}}hrs de producción (base: {{data.registry.base}})</p><br>
+		<p>¿Deseas eliminar el registro del {{data.registry.date| date: 'EEEE d'}} de {{data.registry.date | date:
+			'MMMM'}}?</p>
+		<p>{{data.registry.hours}}hrs de producción (jornada:
+			@if(data.registry.base=='main'){
+			normal
+			}
+			@if(data.registry.base=='extended'){
+			horas extra
+			}
+			)</p><br>
 		<p>Esta accion no se puede deshacer</p>
 	</mat-dialog-content>
 	<mat-dialog-actions align="end">

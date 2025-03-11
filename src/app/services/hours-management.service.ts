@@ -91,7 +91,7 @@ export class HoursManagementService {
     let efectivelyModified = false
     this.registeredHoursSource = this.registeredHoursSource.map(reg => {
       if (reg.id === id) {
-        if (reg.hours === registry.hours && reg.base === registry.base && reg.hours === registry.hours) {
+        if (reg.hours === registry.hours && reg.base === registry.base && reg.hours === registry.hours && reg.date === registry.date) {
           efectivelyModified = false
           return reg
         } else {
@@ -222,6 +222,9 @@ export class HoursManagementService {
       }
     }, false);
     file_input.type = 'file';
+    file_input.accept = '.json';
+    file_input.style.display = 'none';
+    file_input.multiple = false;
     file_input.click();
   }
 

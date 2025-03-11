@@ -3,7 +3,7 @@
 		Tutorial
 	</h2>
 	<mat-dialog-content class="mat-typography no-scroll-correction" style="overflow: scroll !important;">
-		<video controls autoplay loop muted playsinline preload="auto">
+		<video controls autoplay loop muted playsinline preload="auto" (click)="playFullscreen($event)">
 			<source src="./tuto-avif.mp4" type="video/mp4">
 			<source src="./tuto-x265.mp4" type="video/mp4">
 			<source src="./tuto-webm.webm" type="video/webm">
