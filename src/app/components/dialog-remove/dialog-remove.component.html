@@ -5,14 +5,14 @@
 	<mat-dialog-content class="mat-typography no-scroll-correction">
 		<p>¿Deseas eliminar el registro del {{data.registry.date| date: 'EEEE d'}} de {{data.registry.date | date:
 			'MMMM'}}?</p>
-		<p>{{data.registry.hours}}hrs de producción (jornada:
+		<p>{{data.registry.hours}}hrs de producción &#x28;jornada:
 			@if(data.registry.base=='main'){
-			normal
+			normal&#x29;
 			}
 			@if(data.registry.base=='extended'){
-			horas extra
+			horas extra&#x29;
 			}
-			)</p><br>
+		</p><br>
 		<p>Esta accion no se puede deshacer</p>
 	</mat-dialog-content>
 	<mat-dialog-actions align="end">
